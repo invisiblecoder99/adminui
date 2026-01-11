@@ -1,9 +1,9 @@
 <template>
   <div class="flex min-h-screen">
     <Sidebar />
-    <div class="flex-1 ml-64 transition-all duration-300">
+    <div class="flex-1 ml-[280px] transition-all duration-300">
       <Header />
-      <main class="p-6">
+      <main class="p-8">
         <slot />
       </main>
     </div>

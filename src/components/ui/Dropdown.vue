@@ -4,7 +4,7 @@
       @click="isOpen = !isOpen"
       :class="[
         'flex items-center gap-2 px-4 py-2 rounded-lg transition-smooth',
-        'hover:bg-dark-elevated text-gray-300 hover:text-white'
+        'hover:bg-surface-2 text-text-secondary hover:text-text-primary'
       ]"
     >
       <slot name="trigger">
@@ -18,7 +18,7 @@
       <div
         v-if="isOpen"
         :class="[
-          'absolute mt-2 glass rounded-lg shadow-xl overflow-hidden',
+          'absolute mt-2 bg-surface-1 backdrop-blur-xl border border-surface-3 rounded-lg shadow-xl overflow-hidden',
           'min-w-[200px] z-50',
           position === 'left' ? 'left-0' : 'right-0'
         ]"
@@ -61,12 +61,12 @@ onUnmounted(() => {
 <style scoped>
 .dropdown-enter-active,
 .dropdown-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .dropdown-enter-from,
 .dropdown-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-10px) scale(0.95);
 }
 </style>

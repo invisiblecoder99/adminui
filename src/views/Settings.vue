@@ -2,8 +2,8 @@
   <div>
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-white mb-2">Settings</h1>
-      <p class="text-gray-400">Manage your account settings and preferences.</p>
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Settings</h1>
+      <p class="text-text-secondary">Manage your account settings and preferences.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -18,11 +18,11 @@
               :class="[
                 'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth text-left',
                 activeTab === tab.id
-                  ? 'bg-primary/20 text-primary'
-                  : 'text-gray-400 hover:text-white hover:bg-dark-elevated'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-text-secondary hover:text-text-primary hover:bg-surface-2'
               ]"
             >
-              <component :is="tab.icon" class="w-5 h-5" />
+              <component :is="tab.icon" class="w-5 h-5 stroke-[1.5]" />
               <span class="font-medium">{{ tab.label }}</span>
             </button>
           </nav>
@@ -33,15 +33,15 @@
       <div class="lg:col-span-2">
         <!-- Profile Settings -->
         <Card v-if="activeTab === 'profile'">
-          <h2 class="text-xl font-bold text-white mb-6">Profile Settings</h2>
+          <h2 class="text-xl font-bold text-text-primary mb-6">Profile Settings</h2>
           <form class="space-y-6">
             <div class="flex items-center gap-6">
-              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent-pink flex items-center justify-center">
-                <User class="w-12 h-12 text-white" />
+              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <User class="w-12 h-12 text-white stroke-[1.5]" />
               </div>
               <div>
-                <Button variant="outline" size="sm">Change Avatar</Button>
-                <p class="text-xs text-gray-400 mt-2">JPG, PNG or GIF (max. 2MB)</p>
+                <Button variant="secondary" size="sm">Change Avatar</Button>
+                <p class="text-xs text-text-muted mt-2">JPG, PNG or GIF (max. 2MB)</p>
               </div>
             </div>
 
@@ -73,11 +73,11 @@
             />
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-2">Bio</label>
+              <label class="block text-sm font-medium text-text-secondary mb-2">Bio</label>
               <textarea
                 v-model="profile.bio"
                 rows="4"
-                class="w-full px-4 py-3 bg-dark-card border border-dark-border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-smooth"
+                class="w-full px-4 py-3 bg-surface-1 border border-surface-3 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-smooth shadow-inner"
                 placeholder="Tell us about yourself..."
               ></textarea>
             </div>
@@ -91,16 +91,16 @@
 
         <!-- Notification Settings -->
         <Card v-if="activeTab === 'notifications'">
-          <h2 class="text-xl font-bold text-white mb-6">Notification Settings</h2>
+          <h2 class="text-xl font-bold text-text-primary mb-6">Notification Settings</h2>
           <div class="space-y-6">
             <div
               v-for="notification in notifications"
               :key="notification.id"
-              class="flex items-center justify-between py-4 border-b border-dark-border last:border-0"
+              class="flex items-center justify-between py-4 border-b border-surface-3 last:border-0"
             >
               <div>
-                <p class="text-white font-medium mb-1">{{ notification.title }}</p>
-                <p class="text-gray-400 text-sm">{{ notification.description }}</p>
+                <p class="text-text-primary font-medium mb-1">{{ notification.title }}</p>
+                <p class="text-text-secondary text-sm">{{ notification.description }}</p>
               </div>
               <Toggle v-model="notification.enabled" />
             </div>
@@ -109,10 +109,10 @@
 
         <!-- Security Settings -->
         <Card v-if="activeTab === 'security'">
-          <h2 class="text-xl font-bold text-white mb-6">Security Settings</h2>
+          <h2 class="text-xl font-bold text-text-primary mb-6">Security Settings</h2>
           <div class="space-y-6">
             <div>
-              <h3 class="text-lg font-semibold text-white mb-4">Change Password</h3>
+              <h3 class="text-lg font-semibold text-text-primary mb-4">Change Password</h3>
               <form class="space-y-4">
                 <Input
                   type="password"
@@ -133,29 +133,29 @@
               </form>
             </div>
 
-            <div class="pt-6 border-t border-dark-border">
+            <div class="pt-6 border-t border-surface-3">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="text-lg font-semibold text-white mb-1">Two-Factor Authentication</h3>
-                  <p class="text-gray-400 text-sm">Add an extra layer of security to your account</p>
+                  <h3 class="text-lg font-semibold text-text-primary mb-1">Two-Factor Authentication</h3>
+                  <p class="text-text-secondary text-sm">Add an extra layer of security to your account</p>
                 </div>
                 <Toggle v-model="twoFactorEnabled" />
               </div>
             </div>
 
-            <div class="pt-6 border-t border-dark-border">
-              <h3 class="text-lg font-semibold text-white mb-4">Active Sessions</h3>
+            <div class="pt-6 border-t border-surface-3">
+              <h3 class="text-lg font-semibold text-text-primary mb-4">Active Sessions</h3>
               <div class="space-y-3">
                 <div
                   v-for="session in sessions"
                   :key="session.id"
-                  class="flex items-center justify-between p-4 glass rounded-lg"
+                  class="flex items-center justify-between p-4 bg-surface-2/50 border border-surface-3 rounded-lg"
                 >
                   <div class="flex items-center gap-3">
-                    <Monitor class="w-5 h-5 text-gray-400" />
+                    <Monitor class="w-5 h-5 text-text-muted stroke-[1.5]" />
                     <div>
-                      <p class="text-white font-medium">{{ session.device }}</p>
-                      <p class="text-gray-400 text-xs">{{ session.location }} • {{ session.time }}</p>
+                      <p class="text-text-primary font-medium">{{ session.device }}</p>
+                      <p class="text-text-secondary text-xs">{{ session.location }} • {{ session.time }}</p>
                     </div>
                   </div>
                   <Button variant="ghost" size="sm">Revoke</Button>
@@ -167,10 +167,10 @@
 
         <!-- Appearance Settings -->
         <Card v-if="activeTab === 'appearance'">
-          <h2 class="text-xl font-bold text-white mb-6">Appearance Settings</h2>
+          <h2 class="text-xl font-bold text-text-primary mb-6">Appearance Settings</h2>
           <div class="space-y-6">
             <div>
-              <h3 class="text-lg font-semibold text-white mb-4">Theme</h3>
+              <h3 class="text-lg font-semibold text-text-primary mb-4">Theme</h3>
               <div class="grid grid-cols-3 gap-4">
                 <button
                   v-for="theme in themes"
@@ -180,29 +180,29 @@
                     'p-4 rounded-lg border-2 transition-smooth',
                     selectedTheme === theme.id
                       ? 'border-primary bg-primary/10'
-                      : 'border-dark-border hover:border-primary/50'
+                      : 'border-surface-3 hover:border-primary/50'
                   ]"
                 >
                   <div :class="['w-full h-20 rounded-lg mb-3', theme.preview]"></div>
-                  <p class="text-white text-sm font-medium">{{ theme.name }}</p>
+                  <p class="text-text-primary text-sm font-medium">{{ theme.name }}</p>
                 </button>
               </div>
             </div>
 
-            <div class="pt-6 border-t border-dark-border">
-              <h3 class="text-lg font-semibold text-white mb-4">Display Settings</h3>
+            <div class="pt-6 border-t border-surface-3">
+              <h3 class="text-lg font-semibold text-text-primary mb-4">Display Settings</h3>
               <div class="space-y-4">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="text-white font-medium">Compact Mode</p>
-                    <p class="text-gray-400 text-sm">Reduce spacing between elements</p>
+                    <p class="text-text-primary font-medium">Compact Mode</p>
+                    <p class="text-text-secondary text-sm">Reduce spacing between elements</p>
                   </div>
                   <Toggle v-model="compactMode" />
                 </div>
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="text-white font-medium">Animations</p>
-                    <p class="text-gray-400 text-sm">Enable smooth transitions and effects</p>
+                    <p class="text-text-primary font-medium">Animations</p>
+                    <p class="text-text-secondary text-sm">Enable smooth transitions and effects</p>
                   </div>
                   <Toggle v-model="animations" />
                 </div>
@@ -258,9 +258,9 @@ const sessions = ref([
 const selectedTheme = ref('dark')
 
 const themes = [
-  { id: 'dark', name: 'Dark', preview: 'bg-gradient-to-br from-dark-bg to-dark-elevated' },
-  { id: 'midnight', name: 'Midnight', preview: 'bg-gradient-to-br from-gray-900 to-black' },
-  { id: 'purple', name: 'Purple', preview: 'bg-gradient-to-br from-purple-900 to-indigo-900' }
+  { id: 'dark', name: 'Dark', preview: 'bg-gradient-to-br from-base to-surface-1' },
+  { id: 'midnight', name: 'Midnight', preview: 'bg-gradient-to-br from-zinc-950 to-black' },
+  { id: 'purple', name: 'Purple', preview: 'bg-gradient-to-br from-secondary to-primary' }
 ]
 
 const compactMode = ref(false)

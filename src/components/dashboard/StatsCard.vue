@@ -1,30 +1,26 @@
 <template>
-  <Card :glow="true" :hover="true" class="relative overflow-hidden">
+  <Card :hover="true" class="relative overflow-hidden">
     <div class="flex items-start justify-between">
       <div class="flex-1">
-        <p class="text-gray-400 text-sm font-medium mb-1">{{ title }}</p>
-        <div class="flex items-baseline gap-2">
-          <h3 class="text-3xl font-bold text-white">{{ animatedValue }}</h3>
-          <div
-            v-if="trend"
-            :class="[
-              'flex items-center gap-1 text-sm font-medium px-2 py-1 rounded',
-              trendColor
-            ]"
-          >
-            <component :is="trendIcon" class="w-3 h-3" />
-            <span>{{ Math.abs(trend) }}%</span>
-          </div>
+        <p class="text-text-secondary text-sm font-medium mb-2">{{ title }}</p>
+        <div class="flex items-baseline gap-2 mb-3">
+          <h3 class="text-3xl font-bold text-text-primary">{{ animatedValue }}</h3>
         </div>
-        <p class="text-gray-500 text-xs mt-2">{{ subtitle }}</p>
+        <div
+          v-if="trend"
+          :class="[
+            'inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full',
+            trendColor
+          ]"
+        >
+          <component :is="trendIcon" class="w-3 h-3 stroke-[2]" />
+          <span>{{ Math.abs(trend) }}% from last month</span>
+        </div>
       </div>
-      <div :class="['p-3 rounded-xl', iconBgColor]">
-        <component :is="icon" :class="['w-6 h-6', iconColor]" />
+      <div :class="['p-3 rounded-full', iconBgColor]">
+        <component :is="icon" :class="['w-6 h-6 stroke-[1.5]', iconColor]" />
       </div>
     </div>
-    
-    <!-- Gradient overlay -->
-    <div :class="['absolute bottom-0 left-0 right-0 h-1 rounded-b-xl', gradientColor]"></div>
   </Card>
 </template>
 
@@ -68,15 +64,15 @@ const trendIcon = computed(() => {
 })
 
 const trendColor = computed(() => {
-  return props.trend >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+  return props.trend >= 0 ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
 })
 
 const iconBgColor = computed(() => {
   const colors = {
-    primary: 'bg-primary/20',
-    secondary: 'bg-secondary/20',
-    accent: 'bg-accent-pink/20',
-    success: 'bg-emerald-500/20'
+    primary: 'bg-primary/10',
+    secondary: 'bg-secondary/10',
+    accent: 'bg-pink-500/10',
+    success: 'bg-success/10'
   }
   return colors[props.variant]
 })
@@ -85,18 +81,8 @@ const iconColor = computed(() => {
   const colors = {
     primary: 'text-primary',
     secondary: 'text-secondary',
-    accent: 'text-accent-pink',
-    success: 'text-emerald-500'
-  }
-  return colors[props.variant]
-})
-
-const gradientColor = computed(() => {
-  const colors = {
-    primary: 'bg-gradient-to-r from-primary to-primary-light',
-    secondary: 'bg-gradient-to-r from-secondary to-secondary-light',
-    accent: 'bg-gradient-to-r from-accent-pink to-accent-pink-light',
-    success: 'bg-gradient-to-r from-emerald-500 to-emerald-400'
+    accent: 'text-pink-500',
+    success: 'text-success'
   }
   return colors[props.variant]
 })
@@ -124,11 +110,11 @@ const animateValue = () => {
     
     // Format back to original format
     if (typeof props.value === 'string' && props.value.includes('K')) {
-      animatedValue.value = (current / 1000).toFixed(1) + 'K'
+      animatedValue.value = '$' + (current / 1000).toFixed(1) + 'K'
     } else if (typeof props.value === 'string' && props.value.includes('$')) {
       animatedValue.value = '$' + Math.round(current).toLocaleString()
     } else if (typeof props.value === 'string' && props.value.includes('%')) {
-      animatedValue.value = Math.round(current) + '%'
+      animatedValue.value = current.toFixed(1) + '%'
     } else {
       animatedValue.value = Math.round(current).toLocaleString()
     }

@@ -2,8 +2,8 @@
   <div>
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-white mb-2">Users Management</h1>
-      <p class="text-gray-400">Manage your users and their permissions.</p>
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Users Management</h1>
+      <p class="text-text-secondary">Manage your users and their permissions.</p>
     </div>
 
     <!-- Users Table -->
@@ -21,12 +21,12 @@
 
       <template #cell-user="{ row }">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent-pink flex items-center justify-center">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
             <span class="text-white font-medium text-sm">{{ getInitials(row.name) }}</span>
           </div>
           <div>
-            <p class="text-white font-medium">{{ row.name }}</p>
-            <p class="text-gray-400 text-xs">{{ row.email }}</p>
+            <p class="text-text-primary font-medium">{{ row.name }}</p>
+            <p class="text-text-secondary text-xs">{{ row.email }}</p>
           </div>
         </div>
       </template>
@@ -39,8 +39,8 @@
 
       <template #cell-status="{ row }">
         <div class="flex items-center gap-2">
-          <div :class="['w-2 h-2 rounded-full', row.status === 'Active' ? 'bg-emerald-500' : 'bg-gray-500']"></div>
-          <span :class="row.status === 'Active' ? 'text-emerald-400' : 'text-gray-400'">
+          <div :class="['w-2 h-2 rounded-full', row.status === 'Active' ? 'bg-success' : 'bg-surface-3']"></div>
+          <span :class="row.status === 'Active' ? 'text-success' : 'text-text-muted'">
             {{ row.status }}
           </span>
         </div>
@@ -50,19 +50,19 @@
         <div class="flex items-center gap-2 justify-end">
           <button
             @click="editUser(row)"
-            class="p-2 rounded-lg hover:bg-dark-elevated transition-smooth text-gray-400 hover:text-primary"
+            class="p-2 rounded-lg hover:bg-surface-2 transition-smooth text-text-muted hover:text-primary"
           >
             <Edit class="w-4 h-4" />
           </button>
           <button
             @click="viewUser(row)"
-            class="p-2 rounded-lg hover:bg-dark-elevated transition-smooth text-gray-400 hover:text-secondary"
+            class="p-2 rounded-lg hover:bg-surface-2 transition-smooth text-text-muted hover:text-secondary"
           >
             <Eye class="w-4 h-4" />
           </button>
           <button
             @click="deleteUser(row)"
-            class="p-2 rounded-lg hover:bg-dark-elevated transition-smooth text-gray-400 hover:text-rose-500"
+            class="p-2 rounded-lg hover:bg-surface-2 transition-smooth text-text-muted hover:text-error"
           >
             <Trash2 class="w-4 h-4" />
           </button>
@@ -85,10 +85,10 @@
           placeholder="john@example.com"
         />
         <div>
-          <label class="block text-sm font-medium text-gray-300 mb-2">Role</label>
+          <label class="block text-sm font-medium text-text-secondary mb-2">Role</label>
           <select
             v-model="newUser.role"
-            class="w-full px-4 py-3 bg-dark-card border border-dark-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary transition-smooth"
+            class="w-full px-4 py-3 bg-surface-1 border border-surface-3 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-smooth"
           >
             <option value="User">User</option>
             <option value="Admin">Admin</option>
@@ -106,27 +106,27 @@
     <Modal v-model="showUserDetail" :title="selectedUser?.name" size="lg">
       <div v-if="selectedUser" class="space-y-6">
         <div class="flex items-center gap-4">
-          <div class="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent-pink flex items-center justify-center">
+          <div class="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
             <span class="text-white font-bold text-2xl">{{ getInitials(selectedUser.name) }}</span>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white">{{ selectedUser.name }}</h3>
-            <p class="text-gray-400">{{ selectedUser.email }}</p>
+            <h3 class="text-xl font-bold text-text-primary">{{ selectedUser.name }}</h3>
+            <p class="text-text-secondary">{{ selectedUser.email }}</p>
             <div class="flex gap-2 mt-2">
               <Badge :variant="getRoleBadgeVariant(selectedUser.role)">{{ selectedUser.role }}</Badge>
-              <Badge :variant="selectedUser.status === 'Active' ? 'success' : 'default'">{{ selectedUser.status }}</Badge>
+              <Badge :variant="selectedUser.status === 'Active' ? 'success' : 'neutral'">{{ selectedUser.status }}</Badge>
             </div>
           </div>
         </div>
         
         <div class="grid grid-cols-2 gap-4">
-          <div class="glass p-4 rounded-lg">
-            <p class="text-gray-400 text-sm mb-1">Joined Date</p>
-            <p class="text-white font-medium">{{ selectedUser.joined }}</p>
+          <div class="bg-surface-2/50 border border-surface-3 p-4 rounded-lg">
+            <p class="text-text-secondary text-sm mb-1">Joined Date</p>
+            <p class="text-text-primary font-medium">{{ selectedUser.joined }}</p>
           </div>
-          <div class="glass p-4 rounded-lg">
-            <p class="text-gray-400 text-sm mb-1">Last Active</p>
-            <p class="text-white font-medium">{{ selectedUser.lastActive }}</p>
+          <div class="bg-surface-2/50 border border-surface-3 p-4 rounded-lg">
+            <p class="text-text-secondary text-sm mb-1">Last Active</p>
+            <p class="text-text-primary font-medium">{{ selectedUser.lastActive }}</p>
           </div>
         </div>
       </div>

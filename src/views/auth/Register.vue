@@ -1,26 +1,26 @@
 <template>
   <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-    <!-- Animated Background -->
+    <!-- Animated Background Orbs -->
     <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/30 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-      <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-accent-pink/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
+      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style="animation-duration: 5s; animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 6s; animation-delay: 2s;"></div>
     </div>
 
     <!-- Register Card -->
     <div class="w-full max-w-md relative z-10">
-      <div class="glass rounded-2xl p-8 glow-primary">
+      <div class="bg-surface-1/50 backdrop-blur-xl rounded-2xl p-8 border border-surface-3/50 shadow-xl shadow-black/20">
         <!-- Logo -->
         <div class="flex justify-center mb-8">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent-pink flex items-center justify-center glow-primary">
-            <Zap class="w-8 h-8 text-white" />
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+            <Zap class="w-8 h-8 text-white stroke-[1.5]" />
           </div>
         </div>
 
         <!-- Title -->
         <div class="text-center mb-8">
-          <h1 class="text-3xl font-bold text-white mb-2">Create Account</h1>
-          <p class="text-gray-400">Sign up to get started with AdminUI</p>
+          <h1 class="text-3xl font-bold text-text-primary mb-2">Create Account</h1>
+          <p class="text-text-secondary">Sign up to get started with AdminUI</p>
         </div>
 
         <!-- Form -->
@@ -34,7 +34,7 @@
             :error="errors.name"
           >
             <template #icon>
-              <User class="w-5 h-5 text-gray-400" />
+              <User class="w-5 h-5 text-text-muted stroke-[1.5]" />
             </template>
           </Input>
 
@@ -47,7 +47,7 @@
             :error="errors.email"
           >
             <template #icon>
-              <Mail class="w-5 h-5 text-gray-400" />
+              <Mail class="w-5 h-5 text-text-muted stroke-[1.5]" />
             </template>
           </Input>
 
@@ -61,7 +61,7 @@
               :error="errors.password"
             >
               <template #icon>
-                <Lock class="w-5 h-5 text-gray-400" />
+                <Lock class="w-5 h-5 text-text-muted stroke-[1.5]" />
               </template>
             </Input>
             
@@ -73,11 +73,11 @@
                   :key="i"
                   :class="[
                     'h-1 flex-1 rounded-full transition-smooth',
-                    i <= passwordStrength ? strengthColor : 'bg-gray-700'
+                    i <= passwordStrength ? strengthColor : 'bg-surface-3'
                   ]"
                 ></div>
               </div>
-              <p :class="['text-xs', strengthColor.replace('bg-', 'text-')]">
+              <p :class="['text-xs', strengthTextColor]">
                 {{ strengthText }}
               </p>
             </div>
@@ -92,20 +92,20 @@
             :error="errors.confirmPassword"
           >
             <template #icon>
-              <Lock class="w-5 h-5 text-gray-400" />
+              <Lock class="w-5 h-5 text-text-muted stroke-[1.5]" />
             </template>
           </Input>
 
           <label class="flex items-start gap-2 cursor-pointer group">
             <input type="checkbox" v-model="form.terms" class="sr-only peer" />
-            <div class="w-5 h-5 border-2 border-gray-600 rounded peer-checked:bg-primary peer-checked:border-primary transition-smooth flex items-center justify-center mt-0.5">
+            <div class="w-5 h-5 border-2 border-surface-3 rounded peer-checked:bg-primary peer-checked:border-primary transition-smooth flex items-center justify-center mt-0.5">
               <Check v-if="form.terms" class="w-3 h-3 text-white" />
             </div>
-            <span class="text-sm text-gray-400 group-hover:text-white transition-smooth">
+            <span class="text-sm text-text-secondary group-hover:text-text-primary transition-smooth">
               I agree to the <a href="#" class="text-primary hover:text-primary-light">Terms of Service</a> and <a href="#" class="text-primary hover:text-primary-light">Privacy Policy</a>
             </span>
           </label>
-          <p v-if="errors.terms" class="text-sm text-red-500 -mt-2">{{ errors.terms }}</p>
+          <p v-if="errors.terms" class="text-sm text-error -mt-2">{{ errors.terms }}</p>
 
           <Button type="submit" variant="primary" class="w-full">
             Create Account
@@ -113,7 +113,7 @@
         </form>
 
         <!-- Sign In Link -->
-        <p class="mt-8 text-center text-sm text-gray-400">
+        <p class="mt-8 text-center text-sm text-text-muted">
           Already have an account?
           <router-link to="/login" class="text-primary hover:text-primary-light font-medium transition-smooth">
             Sign in
@@ -162,8 +162,13 @@ const passwordStrength = computed(() => {
 })
 
 const strengthColor = computed(() => {
-  const colors = ['bg-red-500', 'bg-yellow-500', 'bg-blue-500', 'bg-emerald-500']
-  return colors[passwordStrength.value - 1] || 'bg-gray-700'
+  const colors = ['bg-error', 'bg-warning', 'bg-info', 'bg-success']
+  return colors[passwordStrength.value - 1] || 'bg-surface-3'
+})
+
+const strengthTextColor = computed(() => {
+  const colors = ['text-error', 'text-warning', 'text-info', 'text-success']
+  return colors[passwordStrength.value - 1] || 'text-text-muted'
 })
 
 const strengthText = computed(() => {
