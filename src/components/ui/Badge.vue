@@ -15,19 +15,20 @@ import { computed } from 'vue'
 const props = defineProps({
   variant: {
     type: String,
-    default: 'default',
-    validator: (value) => ['default', 'primary', 'success', 'warning', 'error', 'info'].includes(value)
+    default: 'neutral',
+    validator: (value) => ['neutral', 'primary', 'success', 'warning', 'error', 'info', 'premium'].includes(value)
   }
 })
 
 const variantClasses = computed(() => {
   const variants = {
-    default: 'bg-gray-500/20 text-gray-300',
-    primary: 'bg-primary/20 text-primary-light',
-    success: 'bg-emerald-500/20 text-emerald-400',
-    warning: 'bg-yellow-500/20 text-yellow-400',
-    error: 'bg-rose-500/20 text-rose-400',
-    info: 'bg-secondary/20 text-secondary-light'
+    neutral: 'bg-surface-3/50 text-text-secondary',
+    primary: 'bg-primary/10 text-primary-light',
+    success: 'bg-success/10 text-success',
+    warning: 'bg-warning/10 text-warning',
+    error: 'bg-error/10 text-error',
+    info: 'bg-info/10 text-info',
+    premium: 'bg-gradient-to-r from-primary via-secondary to-pink-500 text-white'
   }
   return variants[props.variant]
 })

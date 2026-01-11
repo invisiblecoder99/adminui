@@ -1,8 +1,10 @@
 <template>
   <div
     :class="[
-      'glass rounded-xl p-6 transition-smooth',
-      hover ? 'hover:border-primary/50 hover:shadow-lg' : '',
+      'rounded-2xl p-6 transition-smooth',
+      'bg-surface-1/50 backdrop-blur-xl border border-surface-3/50',
+      'shadow-xl shadow-black/20',
+      hover ? 'card-hover cursor-pointer' : '',
       glow ? 'glow-primary' : ''
     ]"
   >
