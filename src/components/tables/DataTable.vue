@@ -4,18 +4,18 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       <div class="flex-1 max-w-md">
         <div class="relative">
-          <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted stroke-[1.5]" />
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Search..."
-            class="w-full pl-10 pr-4 py-2 bg-dark-elevated border border-dark-border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-smooth"
+            class="w-full pl-10 pr-4 py-2 bg-surface-2 border border-surface-3 rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-smooth"
           />
         </div>
       </div>
       <div class="flex gap-2">
-        <button class="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:bg-dark-elevated transition-smooth text-gray-300 hover:text-white">
-          <Filter class="w-4 h-4" />
+        <button class="flex items-center gap-2 px-4 py-2 bg-surface-2 border border-surface-3 rounded-lg hover:bg-surface-3 transition-smooth text-text-secondary hover:text-text-primary">
+          <Filter class="w-4 h-4 stroke-[1.5]" />
           <span class="text-sm">Filter</span>
         </button>
         <slot name="header-actions" />
@@ -26,7 +26,7 @@
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead>
-          <tr class="border-b border-dark-border">
+          <tr class="border-b border-surface-3">
             <th
               v-if="selectable"
               class="text-left py-3 px-4"
@@ -35,17 +35,17 @@
                 type="checkbox"
                 v-model="selectAll"
                 @change="toggleSelectAll"
-                class="w-4 h-4 rounded border-gray-600 bg-dark-elevated text-primary focus:ring-primary"
+                class="w-4 h-4 rounded border-surface-3 bg-surface-2 text-primary focus:ring-primary/20"
               />
             </th>
             <th
               v-for="column in columns"
               :key="column.key"
-              class="text-left py-3 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider"
+              class="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider"
             >
               {{ column.label }}
             </th>
-            <th v-if="$slots.actions" class="text-right py-3 px-4 text-sm font-semibold text-gray-400 uppercase tracking-wider">
+            <th v-if="$slots.actions" class="text-right py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Actions
             </th>
           </tr>
@@ -54,20 +54,20 @@
           <tr
             v-for="(row, index) in filteredData"
             :key="index"
-            class="border-b border-dark-border/50 hover:bg-dark-elevated transition-smooth group"
+            class="border-b border-surface-3/50 hover:bg-surface-2/50 transition-smooth group"
           >
             <td v-if="selectable" class="py-4 px-4">
               <input
                 type="checkbox"
                 v-model="selectedRows"
                 :value="row"
-                class="w-4 h-4 rounded border-gray-600 bg-dark-elevated text-primary focus:ring-primary"
+                class="w-4 h-4 rounded border-surface-3 bg-surface-2 text-primary focus:ring-primary/20"
               />
             </td>
             <td
               v-for="column in columns"
               :key="column.key"
-              class="py-4 px-4 text-sm text-gray-300"
+              class="py-4 px-4 text-sm text-text-secondary"
             >
               <slot :name="`cell-${column.key}`" :row="row" :value="row[column.key]">
                 {{ row[column.key] }}
@@ -82,15 +82,15 @@
     </div>
 
     <!-- Pagination -->
-    <div class="flex items-center justify-between mt-6 pt-6 border-t border-dark-border">
-      <p class="text-sm text-gray-400">
+    <div class="flex items-center justify-between mt-6 pt-6 border-t border-surface-3">
+      <p class="text-sm text-text-muted">
         Showing {{ startIndex + 1 }} to {{ Math.min(endIndex, filteredData.length) }} of {{ filteredData.length }} results
       </p>
       <div class="flex gap-2">
         <button
           @click="currentPage--"
           :disabled="currentPage === 1"
-          class="px-3 py-2 glass rounded-lg hover:bg-dark-elevated transition-smooth text-gray-300 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          class="px-3 py-2 bg-surface-2 border border-surface-3 rounded-lg hover:bg-surface-3 transition-smooth text-text-secondary hover:text-text-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ChevronLeft class="w-4 h-4" />
         </button>
@@ -102,7 +102,7 @@
             'px-3 py-2 rounded-lg transition-smooth text-sm',
             currentPage === page
               ? 'bg-primary text-white'
-              : 'glass text-gray-300 hover:bg-dark-elevated hover:text-white'
+              : 'bg-surface-2 border border-surface-3 text-text-secondary hover:bg-surface-3 hover:text-text-primary'
           ]"
         >
           {{ page }}
@@ -110,7 +110,7 @@
         <button
           @click="currentPage++"
           :disabled="currentPage === totalPages"
-          class="px-3 py-2 glass rounded-lg hover:bg-dark-elevated transition-smooth text-gray-300 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          class="px-3 py-2 bg-surface-2 border border-surface-3 rounded-lg hover:bg-surface-3 transition-smooth text-text-secondary hover:text-text-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ChevronRight class="w-4 h-4" />
         </button>
