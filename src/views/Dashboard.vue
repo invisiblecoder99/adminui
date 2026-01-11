@@ -2,16 +2,15 @@
   <div>
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
-      <p class="text-gray-400">Welcome back! Here's what's happening today.</p>
+      <h1 class="text-3xl font-bold text-text-primary mb-2">Dashboard</h1>
+      <p class="text-text-secondary">Welcome back! Here's what's happening today.</p>
     </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <StatsCard
         title="Total Revenue"
-        value="$45.2K"
-        subtitle="↑ 12% from last month"
+        value="45.2K"
         :icon="DollarSign"
         :trend="12"
         variant="primary"
@@ -19,7 +18,6 @@
       <StatsCard
         title="Total Users"
         value="2,845"
-        subtitle="↑ 8% from last month"
         :icon="Users"
         :trend="8"
         variant="secondary"
@@ -27,7 +25,6 @@
       <StatsCard
         title="Active Orders"
         value="1,234"
-        subtitle="↓ 3% from last month"
         :icon="ShoppingCart"
         :trend="-3"
         variant="accent"
@@ -35,7 +32,6 @@
       <StatsCard
         title="Conversion Rate"
         value="3.2%"
-        subtitle="↑ 5% from last month"
         :icon="TrendingUp"
         :trend="5"
         variant="success"
@@ -61,23 +57,23 @@
       <!-- Quick Actions -->
       <div>
         <Card>
-          <h3 class="text-lg font-semibold text-white mb-6">Quick Actions</h3>
+          <h3 class="text-lg font-semibold text-text-primary mb-6">Quick Actions</h3>
           <div class="space-y-3">
             <button
               v-for="action in quickActions"
               :key="action.label"
-              class="w-full flex items-center gap-3 p-4 glass rounded-lg hover:bg-dark-elevated transition-smooth group"
+              class="w-full flex items-center gap-3 p-4 bg-surface-2/50 border border-surface-3 rounded-lg hover:bg-surface-2 hover:border-surface-2 transition-smooth group"
             >
               <div :class="['p-2 rounded-lg', action.color]">
-                <component :is="action.icon" class="w-5 h-5 text-white" />
+                <component :is="action.icon" class="w-5 h-5 text-white stroke-[1.5]" />
               </div>
               <div class="flex-1 text-left">
-                <p class="text-white font-medium group-hover:text-primary transition-smooth">
+                <p class="text-text-primary font-medium group-hover:text-primary transition-smooth">
                   {{ action.label }}
                 </p>
-                <p class="text-gray-400 text-sm">{{ action.description }}</p>
+                <p class="text-text-muted text-sm">{{ action.description }}</p>
               </div>
-              <ChevronRight class="w-5 h-5 text-gray-400 group-hover:text-primary transition-smooth" />
+              <ChevronRight class="w-5 h-5 text-text-muted group-hover:text-primary transition-smooth" />
             </button>
           </div>
         </Card>
@@ -110,13 +106,13 @@ const quickActions = [
     label: 'Manage Products',
     description: 'Update inventory',
     icon: Package,
-    color: 'bg-accent-pink/20'
+    color: 'bg-pink-500/20'
   },
   {
     label: 'System Settings',
     description: 'Configure system',
     icon: Settings,
-    color: 'bg-emerald-500/20'
+    color: 'bg-success/20'
   }
 ]
 </script>
